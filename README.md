@@ -1,9 +1,7 @@
 
-# Ben Keegan - gRPC Image Rotation Service Submission
+# gRPC Image Rotation Service
 
-Submission requires clean install of Mac OS
-
-
+Requires Mac OS
 
 ### Limitations & Known Issues
 
