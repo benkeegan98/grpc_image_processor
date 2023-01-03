@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if ! [ -f "src/image_pb2.py" ] && ! [ -f "src/image_pb2_grpc.py" ]; then
+  python -m grpc_tools.protoc -I./proto --python_out=./src --grpc_python_out=./src ./proto/image.proto
+fi
+
+echo "Running test suite..."
+cd src/tests && python tests.py

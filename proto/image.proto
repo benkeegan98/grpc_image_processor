@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+// A single image which might be grayscale, or color.
+//
+// When color == false, this image is grayscale.
+// In this case, the data is single channel (one byte per pixel)
+// and stored row-wise.
+//
+// When color == true, this is a color image.  In
+// this case, the data is 3 channel rgb with the rgb
+// triplets stored row-wise (one byte per channel, 3 bytes
+// per pixel).
+message Image {
+    bool color = 1;
+    bytes data = 2;
+    int32 width = 3;
+    int32 height = 4;
+}
+
+// A request to rotate an image by some multiple of 90 degrees.
+//
+// The input image may be color or grayscale.
+//
+// Positive rotations are counter clockwise.
+message ImageRotateRequest {
+    enum Rotation {
+        NONE = 0;
+        NINETY_DEG = 1;
+        ONE_EIGHTY_DEG = 2;
+        TWO_SEVENTY_DEG = 3;
+    }
+
+    Rotation rotation = 1;
+    Image image = 2;
+}
+
+service ImageService {
+    rpc RotateImage(ImageRotateRequest) returns (Image);
+
+    // A request to mean filter the given image and return the new filtered
+    // image.  The mean filter is computed for each pixel in an image by
+    // taking the average of a pixel and all of its neighbors.
+    // For color images, the mean filter is the image with this filter
+    // run on each of the 3/4 channels independently.
+    rpc MeanFilter(Image) returns (Image);
+}
