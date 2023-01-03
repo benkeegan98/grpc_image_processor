@@ -6,11 +6,15 @@ Requires Mac OS
 ### Limitations & Known Issues
 
 Setup Script
+- Setup script is used to setup system and install dependencies.
 - Setup script does not work using command `./setup`, but instead only works with command `source setup`.
     - This is because the script sets the `pyenv` version, and activates the `venv` virtual environment using `source venv/bin/activate`. With the `./setup` command, the python version is set and the virtual environment is activated inside the internal bash shell that exits when the script terminates, hence these changes don't persist in our main shell. 
     - `source setup` runs the script from our main shell, so allows these changes to persist. This was the only way I could get my setup script to work as intended.
 - The setup command also requires the user to be an Administrator such that they have `sudo` permissions
     - This is required for the Homebrew installation process
+
+Build Script
+- Build script is used to generate gRPC server and client code using the protocol buffer compiler and proto definitions file.
 
 ### Other Considerations
 
