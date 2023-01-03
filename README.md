@@ -11,13 +11,8 @@ Setup Script
 - Setup script does not work using command `./setup`, but instead only works with command `source setup`.
     - This is because the script sets the `pyenv` version, and activates the `venv` virtual environment using `source venv/bin/activate`. With the `./setup` command, the python version is set and the virtual environment is activated inside the internal bash shell that exits when the script terminates, hence these changes don't persist in our main shell. 
     - `source setup` runs the script from our main shell, so allows these changes to persist. This was the only way I could get my setup script to work as intended.
-    - Given more time, I would have liked to have explored different ways to implement this so that the `./setup` command worked. I couldn't find a way to source the virtual environment inside the script so that the main shell would have `venv` activated, but I could have explored other solutions, such as setting up Docker containers.
-    - Docker would have been a great alternative to using Python `venv`, that may have required less steps in the setup script. For example, I would not have had to install `pyenv` to set the Python version, as I could have taken care of this in the Dockerfiles, and the containers would pull down the correct Python version at build time. One reason I didn't switch over to Docker was that I had already set up my argument parser for the  `server.py` and `client.py`, which took care of a lot of cases, such as invalid inputs and providing choices for the rotation string. With more time on the project, I'd have liked to have figured out a Docker implementation that worked with my Python argument parser.
 - The setup command also requires the user to be an Administrator such that they have `sudo` permissions
     - This is required for the Homebrew installation process
-- One good aspect of the setup script is the conditional checks for whether different packages have already been installed, so that there is no repeat installation or interactive prompts. This is helpful for when you have to run the setup script again in a second tab when trying to run `./client` and `./server` simultaneously.
-
-
 
 ### Other Considerations
 
